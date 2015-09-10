@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 提出課題です，心の声を作成するプログラムを作成してください。
  * 「。」「，」の文字を「...」に変換し，「？の後ろ」と，ランダムな位置に「...」を挿入するプログラムを作成しなさい。
  * とは言っても，４箇所のTODOの部分のコードを書くだけです。コードの中のヒントを見落とさないように。
@@ -8,6 +8,9 @@
 
 String.prototype.insertDots = function(str, index) {
   // TODO: この変数の中身を作ってください
+  var str1 = str.substr(0, index);
+  var str2 = str.substr(index);
+  str = str1 + "..." + str2;
   return　str;
 };
 
@@ -22,11 +25,11 @@ function toVoiceInsideYourHeart(phrase) {
     if (phrase.charAt(i) == '。' || phrase.charAt(i) == '，') {
       phrase = phrase.substring(0, i) + (phrase.substring(i, phrase.length)).replace(phrase.charAt(i), '...');
       num = max_num;
-      i += 0; // TODO: 0の代わりに，正しい数値を入れてください
-    } else if (phrase.charAt(i - 1) == '？' || Math.floor(Math.random() * num) < -1) {　// TODO: 条件式の右辺の -1 を自分が最適だと感じる数値に調整してください。
+      i += 2; // TODO: 0の代わりに，正しい数値を入れてください
+    } else if (phrase.charAt(i - 1) == '？' || Math.floor(Math.random() * num) <3) {　// TODO: 条件式の右辺の -1 を自分が最適だと感じる数値に調整してください。
       phrase = phrase.insertDots(phrase, i);
       num = max_num;
-      i += 0; // TODO: 0の代わりに，正しい数値を入れてください
+      i += 3; // TODO: 0の代わりに，正しい数値を入れてください
     }
     num--;
   }
