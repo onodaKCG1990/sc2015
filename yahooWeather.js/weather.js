@@ -6,8 +6,6 @@ var http = require('http');
 var parseString = require('xml2js').parseString;;
 var requestfunction = require('request');
 
-var extractJSON = "";
-
 // header
 var htmlHeader = '<!DOCTYPE html>\
 <html lang="ja">\
@@ -57,7 +55,6 @@ function onRequest(request, response) {
   requestfunction(RSS, function (error, rssresponse, body) {
     if (!error && rssresponse.statusCode == 200) {
       analyzeRSS(body);
-      //console.log(extractJSON);
       response.writeHead(200, {'Content-Type': 'text/html; charset=UTF-8'});
       response.write(htmlHeader);
       response.write(htmlBody);
@@ -65,8 +62,7 @@ function onRequest(request, response) {
       response.end();
     }
   });
-  
- // console.log(items);     
+      
   return;
 }
 
@@ -78,15 +74,17 @@ function analyzeRSS(xml) {
       console.log(err);
       return 0;
     }
-   
-    // console.log(JSON.stringify(obj));
+    var date = new Date(); 
+    // date.setDate (date.getDate() + 10 ); 30日を超えた場合の動作確認
     var items = obj.rss.channel[0].item;
     for (var i in items) {
       var item = items[i];
-      htmlBody += '<p>' + item.title + '</p>';
-      // console.log(item);
+      htmlBody += '<p>' + date.getDate() + "日は: "+ item.description + '</p>';
+      date.setDate (date.getDate() + 1 );
+      if(i == 7)break; // 不要な警戒：注意報情報を省くため
     }
   })
+  
 }
 
 // 待ち受けするポートとアドレスを指定
